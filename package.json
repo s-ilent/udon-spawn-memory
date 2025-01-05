@@ -1,0 +1,16 @@
+{
+  "name": "com.s-ilent.spawnmemory",
+  "displayName": "SpawnMemory",
+  "version": "1.0.0",
+  "description": "Describe this Package",
+  "gitDependencies": {},
+  "vpmDependencies": {},
+  "author": {
+    "name": "Silent",
+    "email": "silent@noemail.net",
+    "url": ""
+  },
+  "legacyFolders": {},
+  "legacyFiles": {},
+  "localPath": "E:\\Development3\\VRC-SDK3-PSHomeSpaces2\\Packages\\com.s-ilent.spawnmemory"
+}
