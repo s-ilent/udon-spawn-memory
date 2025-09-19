@@ -3,10 +3,14 @@ using UnityEngine;
 using VRC.SDKBase;
 using VRC.Udon.Common.Interfaces;
 
+[RequireComponent(typeof(VRC.SDK3.Components.VRCPlayerObject))]
+[RequireComponent(typeof(VRC.SDK3.Components.VRCEnablePersistence))]
 [UdonBehaviourSyncMode(BehaviourSyncMode.Manual)]
 public class SpawnMemory : UdonSharpBehaviour
 {
+	[Tooltip("How often the position is saved, in seconds.")]
     [SerializeField] private float _saveInterval = 15f;
+	[Tooltip("If the saved position is older than this, it is ignored on re-entry. Set to zero to disable.")]
     [SerializeField] private int _saveTimeLimitMinutes = 20;
     [Space(20)]
     [SerializeField] [UdonSynced] private Vector3 _syncedPosition;
@@ -82,7 +86,7 @@ public class SpawnMemory : UdonSharpBehaviour
         _dataRestored = true;
 
         long currentTimeTicks = System.DateTime.UtcNow.Ticks;
-        if ((currentTimeTicks - _lastSaveTimeTicks) / System.TimeSpan.TicksPerMinute <= _saveTimeLimitMinutes 
+        if ((_saveTimeLimitMinutes == 0 || (currentTimeTicks - _lastSaveTimeTicks) / System.TimeSpan.TicksPerMinute <= _saveTimeLimitMinutes) 
             && _syncedPosition != Vector3.zero)
         {
            _localPlayer.TeleportTo(_syncedPosition, _syncedRotation);
